@@ -119,7 +119,7 @@ const getNubank = async () => {
 app.get('/', async (req, res) => {
     try {
         browser = await puppeteer.launch({
-            headless: false,
+            headless: true,
             executablePath: '/usr/bin/google-chrome',
             args: ['--no-sandbox'],
         });
