@@ -21,18 +21,11 @@ RUN apt-get update && apt-get install -y \
     libcurl4 \
     libxss1 \
     libgconf-2-4 \
-    libnss3 \
-    libxss1 \
-    libgconf-2-4 \
     libxi6 \
     libgdk-pixbuf2.0-0 \
     libxkbcommon0 \
-    libatk1.0-0 \
-    libcups2 \
-    libxcomposite1 \
-    libxrandr2 \
     libxrender1 \
-    libgbm-dev \
+    libXfixes3 \
     --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
