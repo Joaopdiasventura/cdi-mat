@@ -22,7 +22,7 @@ const getInter = async () => {
     await interPage.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36');
 
     try {
-        await interPage.waitForSelector('body > div.Site__wrapper > div > div > section.bg-gray-100.pt-4.pb-5 > div > div > div.col-12.col-lg-5.mt-5.mt-lg-0.ml-auto > div.investmentComparisons > div:nth-child(3) > h5', { timeout: 5000 });
+        await interPage.waitForSelector('body > div.Site__wrapper > div > div > section.bg-gray-100.pt-4.pb-5 > div > div > div.col-12.col-lg-5.mt-5.mt-lg-0.ml-auto > div.investmentComparisons > div:nth-child(3) > h5', { timeout: 50000 });
 
         const interValueElement = await interPage.$('body > div.Site__wrapper > div > div > section.bg-gray-100.pt-4.pb-5 > div > div > div.col-12.col-lg-5.mt-5.mt-lg-0.ml-auto > div.investmentComparisons > div:nth-child(3) > h5');
 
@@ -34,10 +34,8 @@ const getInter = async () => {
             throw new Error('Inter value element not found on the page');
         }
     } catch (error) {
-        const pageContent = await interPage.content();
-        console.error("Error finding Inter element. Here's the page content for debugging:\n", pageContent);
         await interPage.close();
-        throw error;
+        return "sem dados"
     }
 };
 
@@ -47,7 +45,7 @@ const getC6 = async () => {
     await c6Page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36');
 
     try {
-        await c6Page.waitForSelector('#post-1665798 > div > figure:nth-child(19) > table > tbody > tr:nth-child(2) > td:nth-child(2)', { timeout: 10000 });
+        await c6Page.waitForSelector('#post-1665798 > div > figure:nth-child(19) > table > tbody > tr:nth-child(2) > td:nth-child(2)', { timeout: 50000 });
 
         const c6ValueElement = await c6Page.$('#post-1665798 > div > figure:nth-child(19) > table > tbody > tr:nth-child(2) > td:nth-child(2)');
 
@@ -59,10 +57,7 @@ const getC6 = async () => {
             throw new Error('c6 value element not found on the page');
         }
     } catch (error) {
-        const pageContent = await c6Page.content();
-        console.error("Error finding c6 element. Here's the page content for debugging:\n", pageContent);
-        await c6Page.close();
-        throw error;
+        return "sem dados"
     }
 };
 
@@ -72,7 +67,7 @@ const getPicPay = async () => {
     await picpPayPage.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36');
 
     try {
-        await picpPayPage.waitForSelector('#compact-table-item1 > td.idh-block-compact-table__column--right > ul > li:nth-child(1)', { timeout: 10000 });
+        await picpPayPage.waitForSelector('#compact-table-item1 > td.idh-block-compact-table__column--right > ul > li:nth-child(1)', { timeout: 50000 });
 
         const picpPayValueElement = await picpPayPage.$('#compact-table-item1 > td.idh-block-compact-table__column--right > ul > li:nth-child(1)');
 
@@ -84,10 +79,7 @@ const getPicPay = async () => {
             throw new Error('picpPay value element not found on the page');
         }
     } catch (error) {
-        const pageContent = await picpPayPage.content();
-        console.error("Error finding picpPay element. Here's the page content for debugging:\n", pageContent);
-        await picpPayPage.close();
-        throw error;
+        return "sem dados"
     }
 };
 
@@ -97,7 +89,7 @@ const getNubank = async () => {
     await nubankPage.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36');
 
     try {
-        await nubankPage.waitForSelector('#content-news > h2:nth-child(10)', { timeout: 10000 });
+        await nubankPage.waitForSelector('#content-news > h2:nth-child(10)', { timeout: 50000 });
 
         const nubankValueElement = await nubankPage.$('#content-news > h2:nth-child(10)');
 
@@ -109,35 +101,26 @@ const getNubank = async () => {
             throw new Error('nubank value element not found on the page');
         }
     } catch (error) {
-        const pageContent = await nubankPage.content();
-        console.error("Error finding nubank element. Here's the page content for debugging:\n", pageContent);
-        await nubankPage.close();
-        throw error;
+        return "sem dados"
     }
 }
 
 app.get('/', async (req, res) => {
-    try {
-        browser = await puppeteer.launch({
-            headless: true,
-            executablePath: '/usr/bin/google-chrome',
-            args: ['--no-sandbox'],
-        });
+    browser = await puppeteer.launch({
+        headless: true,
+        executablePath: '/usr/bin/google-chrome',
+        args: ['--no-sandbox'],
+    });
 
-        const cdi = await getCdi();
-        const inter = await getInter();
-        const nubank = await getNubank();
-        const c6 = await getC6();
-        const picPay = await getPicPay();
+    const cdi = await getCdi();
+    const inter = await getInter();
+    const nubank = await getNubank();
+    const c6 = await getC6();
+    const picPay = await getPicPay();
 
-        await browser.close();
+    await browser.close();
 
-        return res.json({ cdi, inter, c6, picPay, nubank, "feito por": "João Paulo Dias - vulgo jp e melhor joão do 2° D.S" });
-
-    } catch (error) {
-        console.error('Error occurred:', error);
-        res.status(500).json({ error: 'An error occurred while retrieving CDI value' });
-    }
+    return res.json({ cdi, inter, c6, picPay, nubank, "feito por": "João Paulo Dias - vulgo jp e melhor joão do 2° D.S" });
 });
 
 app.listen(port, () => {
