@@ -10,7 +10,7 @@ const getCdi = async () => {
     await cdiPage.goto('https://investidor10.com.br/indices/cdi/');
 
     const cdiValueElement = await cdiPage.$('#header_action > div > div.name-ticker > h2');
-    const cdiValue = await cdiValueElement.evaluate(el => el.textContent);
+    const cdiValue = await cdiValueElement.evaluate(el => el.textContent).replace("I", "e");
 
     await cdiPage.close();
     return cdiValue.split(".")[0];
