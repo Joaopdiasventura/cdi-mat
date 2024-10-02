@@ -18,7 +18,7 @@ const getCdi = async () => {
 
 const getInter = async () => {
     const interPage = await browser.newPage();
-    await interPage.goto('https://yubb.com.br/investimentos/renda-fixa/banco-inter-106-cdi-cdb-361-dias-100-minimo?principal=5000&months=12');
+    await interPage.goto('https://yubb.com.br/investimentos/renda-fixa/banco-inter-106-cdi-cdb-361-dias-100-minimo?principal=5000&months=12', { timeout: 60000 });
     await interPage.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36');
 
     try {
@@ -41,7 +41,7 @@ const getInter = async () => {
 
 const getC6 = async () => {
     const c6Page = await browser.newPage();
-    await c6Page.goto('https://www.idinheiro.com.br/contas/digital/quanto-seu-dinheiro-rende-no-c6-bank/');
+    await c6Page.goto('https://www.idinheiro.com.br/contas/digital/quanto-seu-dinheiro-rende-no-c6-bank/', { timeout: 60000 });
     await c6Page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36');
 
     try {
@@ -63,7 +63,7 @@ const getC6 = async () => {
 
 const getPicPay = async () => {
     const picpPayPage = await browser.newPage();
-    await picpPayPage.goto('https://www.idinheiro.com.br/contas/digital/picpay-ou-nubank/');
+    await picpPayPage.goto('https://www.idinheiro.com.br/contas/digital/picpay-ou-nubank/', { timeout: 60000 });
     await picpPayPage.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36');
 
     try {
@@ -85,7 +85,7 @@ const getPicPay = async () => {
 
 const getNubank = async () => {
     const nubankPage = await browser.newPage()
-    await nubankPage.goto('https://canaltech.com.br/negocios/nubank-como-e-o-cashback-com-rendimento-de-200-do-cdi-no-cartao-ultravioleta-205319/');
+    await nubankPage.goto('https://canaltech.com.br/negocios/nubank-como-e-o-cashback-com-rendimento-de-200-do-cdi-no-cartao-ultravioleta-205319/', { timeout: 60000 });
     await nubankPage.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36');
 
     try {
